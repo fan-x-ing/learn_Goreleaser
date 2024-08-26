@@ -25,9 +25,17 @@ builds:
 
 dockers:
   - image_templates:
-      - "starsrc/go-releaser:latest"
       - "starsrc/go-releaser:{{ .Tag }}"
       - "starsrc/go-releaser:v{{ .Major }}"
+      - "starsrc/go-releaser:v{{ .Major }}.{{ .Minor }}"
+      - "starsrc/go-releaser:latest"
+  - build_flag_templates:
+      - "--pull"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.title={{.ProjectName}}"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+  - use: buildx
 
 archives:
   - format: tar.gz
