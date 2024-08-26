@@ -23,6 +23,12 @@ builds:
       - windows
       - darwin
 
+dockers:
+  - image_templates:
+      - "starsrc/go-releaser:latest"
+      - "starsrc/go-releaser:{{ .Tag }}"
+      - "starsrc/go-releaser:v{{ .Major }}"
+
 archives:
   - format: tar.gz
     # this name template makes the OS and Arch compatible with the results of `uname`.
